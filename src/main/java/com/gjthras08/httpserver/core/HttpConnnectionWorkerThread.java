@@ -27,7 +27,6 @@ public class HttpConnnectionWorkerThread extends Thread{
         try (InputStream input = clientSocket.getInputStream();
              OutputStream output = clientSocket.getOutputStream()) {
             
-            // 1️⃣ Parse HTTP request
             HttpParser parser = new HttpParser();
             HttpRequest request;
             try {
@@ -37,16 +36,14 @@ public class HttpConnnectionWorkerThread extends Thread{
                 return;
             }
             
-            // 2️⃣ Handle GET request
             if (request.getMethod() != HttpMethod.GET) {
                 sendErrorResponse(output, HttpStatusCode.SERVER_ERROR_501_NOT_IMPLEMENTED);
                 return;
             }
             
-            // 3️⃣ Use WebRootHandler to get file
             String path = request.getRequestTarget();
             if (path.equals("/")) {
-                path = "/index.html"; // default page
+                path = "/index.html";
             }
             
             byte[] body;
@@ -62,7 +59,6 @@ public class HttpConnnectionWorkerThread extends Thread{
                 return;
             }
             
-            // 4️⃣ Send response
             String statusLine = "HTTP/1.1 200 OK\r\n";
             String headers = "Content-Type: " + mimeType + "\r\n" +
                     "Content-Length: " + body.length + "\r\n" +
