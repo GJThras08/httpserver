@@ -52,7 +52,13 @@ public class HttpParser {
                     }
                     
                     try {
-                        request.setHttpVersion(processingDataBuffer.toString());
+                        String version = processingDataBuffer.toString();
+                        
+                        if (!version.equals("HTTP/1.1")) {
+                            throw new HttpParsingException(HttpStatusCode.SERVER_ERROR_505_HTTP_VERSION_NOT_SUPPORTED);
+                        }
+                        
+                        request.setHttpVersion(version);
                     } catch (BadHttpVersionException e) {
                         throw new HttpParsingException(HttpStatusCode.SERVER_ERROR_501_NOT_IMPLEMENTED);
                     }
@@ -120,13 +126,14 @@ public class HttpParser {
         if (matcher.matches()) {
             String fieldName = matcher.group("fieldName");
             String fieldValue = matcher.group("fieldValue");
+            LOGGER.debug("Header parsed: {} = {}", fieldName, fieldValue);
             request.addHeader(fieldName, fieldValue);
         } else {
             throw new HttpParsingException(HttpStatusCode.CLIENT_ERROR_400_BAD_REQUEST);
         }
         
     }
-    private void parseBody(InputStreamReader reader, HttpRequest request) {
-    
+    private void parseBody(InputStreamReader reader, HttpRequest request) throws HttpParsingException {
+        request.setBody("");
     }
 }

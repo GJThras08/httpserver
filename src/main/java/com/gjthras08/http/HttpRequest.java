@@ -1,5 +1,6 @@
 package com.gjthras08.http;
 
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -10,6 +11,7 @@ public class HttpRequest extends HttpMessage {
     private String originalHttpVersion;
     private HttpVersion bestCompatibleVersion;
     private HashMap<String, String> headers = new HashMap<>();
+    private String body = "";
     
     HttpRequest() {
     
@@ -37,6 +39,18 @@ public class HttpRequest extends HttpMessage {
     
     public String getHeader(String headerName) {
         return headers.get(headerName.toLowerCase());
+    }
+    
+    public String getBody() {
+        return body;
+    }
+    
+    public byte[] getBodyBytes() {
+        return body.getBytes(StandardCharsets.UTF_8);
+    }
+    
+    public void setBody(String body) {
+        this.body = body;
     }
     
     void setMethod(String methodName) throws HttpParsingException {

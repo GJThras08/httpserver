@@ -4,6 +4,7 @@ public enum HttpStatusCode {
     /* --- CLIENT ERRORS --- */
     CLIENT_ERROR_400_BAD_REQUEST(400, "Bad Request"),
     CLIENT_ERROR_401_METHOD_NOT_ALLOWED(401, "Method Not Allowed"),
+    CLIENT_ERROR_404_NOT_FOUND(404, "Not found"),
     CLIENT_ERROR_414_BAD_REQUEST(414, "URI Too Long "),
     
     /* --- Server ERRORS --- */
@@ -19,4 +20,12 @@ public enum HttpStatusCode {
         this.STATUS_CODE = STATUS_CODE;
         this.MESSAGE = MESSAGE;
     }
+    public int getCode() {
+        return this.STATUS_CODE;
+    }
+    
+    public String getReason() {
+        return this.MESSAGE;
+    }
 }
+

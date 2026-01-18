@@ -1,5 +1,7 @@
 package com.gjthras08.httpserver.core;
 
+import com.gjthras08.httpserver.core.io.WebRootHandler;
+import com.gjthras08.httpserver.core.io.WebRootNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,16 +27,17 @@ public class ServerListenerThread extends Thread{
     @Override
     public void run() {
         try {
+            WebRootHandler webRootHandler = new WebRootHandler(webroot);
             while (serverSocket.isBound() && !serverSocket.isClosed()) {
                 Socket socket = serverSocket.accept();
                 
                 LOGGER.info(" * Connection accepted: " + socket.getInetAddress());
                 
-                HttpConnnectionWorkerThread workerThread = new HttpConnnectionWorkerThread(socket);
+                HttpConnnectionWorkerThread workerThread = new HttpConnnectionWorkerThread(socket, webRootHandler);
                 workerThread.start();
             }
             
-        } catch (IOException e) {
+        } catch (IOException | WebRootNotFoundException e) {
             e.printStackTrace();
             LOGGER.error("Problem with setting socket", e);
         } finally {
