@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Java HTTP Server!</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+
+</head>
+    <body>
+    <div class="container">
+        <h1 class="fade-in">Welcome to My Java HTTP Server!</h1>
+        <h2 class="fade-in delay-1"><i>- it finally works -</i></h2>
+
+        <p class="fade-in delay-2">
+            This page is served directly from my <strong>Java HTTP server!!!</strong>
+            Although it's a very simple server, it does have the basic features required by rfc that makes it fully functional.
+        </p>
+
+        <div class="features fade-in delay-3">
+            <div class="feature">
+                <h3>1. GET Request</h3>
+                <p>The browser asks the server for this page.</p>
+            </div>
+            <div class="feature">
+                <h3>2. HttpParser</h3>
+                <p>Then it reads the request and finds what to serve.</p>
+            </div>
+            <div class="feature">
+                <h3>3. WebRootHandler</h3>
+                <p>Then it finds files in the <strong>WebRoot</strong> folder.</p>
+            </div>
+            <div class="feature">
+                <h3>4. Response</h3>
+                <p>Then finally, the server sends the page back to the browser. </p>
+            </div>
+        </div>
+
+        <p class="fade-in delay-4">so like by editing the root html file it should automatically update this webpage. i just think that is so sick</p>
+    </div>
+
+    <script src="script.js"></script>
+    </body>
+</html>
